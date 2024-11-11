@@ -1,23 +1,18 @@
-import React, { useState } from "react";
+import React from "react";
 
-export default function Todo({ todo, onDelete }) {
-    const [isCompleted, setIsCompleted] = useState(false);
-
-    const handleCheckboxChange = () => {
-        setIsCompleted(!isCompleted);
-    };
-
+export default function Todo({ todo, onDelete, onToggleComplete, onEdit }) {
     return (
         <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
             <input
                 type="checkbox"
-                checked={isCompleted}
-                onChange={handleCheckboxChange}
+                checked={todo.isCompleted}
+                onChange={onToggleComplete}
             />
-            <p style={{ margin: 0, textDecoration: isCompleted ? "line-through" : "none" }}>
-                {todo}
+            <p style={{ margin: 0, textDecoration: todo.isCompleted ? "line-through" : "none" }}>
+                {todo.text}
             </p>
-            {isCompleted && (
+            <button onClick={onEdit}>Edit</button>
+            {todo.isCompleted && (
                 <button onClick={onDelete}>Delete</button>
             )}
         </div>
